@@ -1,32 +1,26 @@
-ARG         ALPINE_VERSION="${ALPINE_VERSION:-3.15}"
-FROM        alpine:${ALPINE_VERSION}
+FROM  hermsi/alpine-sshd:latest
 
-LABEL       maintainer="https://github.com/hermsi1337"
-
-ARG         OPENSSH_VERSION="${OPENSSH_VERSION:-8.8_p1-r1}"
-ENV         CONF_VOLUME="/conf.d"
-ENV         OPENSSH_VERSION="${OPENSSH_VERSION}" \
-            CACHED_SSH_DIRECTORY="${CONF_VOLUME}/ssh" \
-            AUTHORIZED_KEYS_VOLUME="${CONF_VOLUME}/authorized_keys" \
-            ROOT_KEYPAIR_LOGIN_ENABLED="false" \
-            ROOT_LOGIN_UNLOCKED="false" \
-            USER_LOGIN_SHELL="/bin/bash" \
-            USER_LOGIN_SHELL_FALLBACK="/bin/ash"
-
-RUN         apk add --upgrade --no-cache \
-                    bash \
-                    bash-completion \
-                    rsync \
-                    openssh=${OPENSSH_VERSION} \
-            && \
-            mkdir -p /root/.ssh "${CONF_VOLUME}" "${AUTHORIZED_KEYS_VOLUME}" \
-            && \
-            cp -a /etc/ssh "${CACHED_SSH_DIRECTORY}" \
-            && \
-            rm -rf /var/cache/apk/*
+RUN echo "" >> /etc/apk/repositories \
+    && \
+    echo "@testing http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && \
+    mkdir -p /data \
+    mkdir -p /root \
+    && \
+    apk add --no-cache \
+            git \
+            nginx \
+            redis \
+            mosquitto \
+            dhcp \
+            openrc \
+            openssl \
+            ddclient@testing \
+            screen
 
 COPY        entrypoint.sh /
-COPY        conf.d/etc/ /etc/
 EXPOSE      22
-VOLUME      ["/etc/ssh"]
+EXPOSE      443
+EXPOSE      80
+VOLUME      ["/etc/ssh","/data","/root","/sys/fs/cgroup"]
 ENTRYPOINT  ["/entrypoint.sh"]

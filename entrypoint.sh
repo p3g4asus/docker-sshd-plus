@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+# set -e
 
 # enable debug mode if desired
 if [[ "${DEBUG}" == "true" ]]; then 
@@ -169,6 +169,17 @@ else
 fi
 
 echo ""
+if [[ -n "${ACME_EMAIL}" ]] && [[ ! -d ~/.acme.sh ]]; then
+    wget -O -  https://get.acme.sh | sh -s email=${ACME_EMAIL}
+fi
+
+if [[ -d ~/.acme.sh ]]; then
+    echo "starting cron"
+    /usr/sbin/crond
+fi
+MAIN_START=$((${START_PARAM} & 1))
+
+[[ -n "${POST_EXEC}" ]] && [[ ${MAIN_START} -gt 0 ]] && screen -dmS start_servers bash -c "export START_PARAM=\"${START_PARAM}\"; ${POST_EXEC}; exec bash"
 
 # do not detach (-D), log to stderr (-e), passthrough other arguments
 exec /usr/sbin/sshd -D -e "$@"
