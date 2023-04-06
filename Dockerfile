@@ -17,7 +17,10 @@ RUN echo "" >> /etc/apk/repositories \
             openssl \
             ddclient@testing \
             screen
-
+ENV         ACME_EMAIL=""
+ENV         START_PARAM=0
+ENV         POST_EXEC=""
+ENV         ROOT_PASSWORD=""
 COPY        entrypoint.sh /
 EXPOSE      22
 EXPOSE      443
