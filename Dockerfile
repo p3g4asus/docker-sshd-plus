@@ -16,7 +16,16 @@ RUN echo "" >> /etc/apk/repositories \
             openrc \
             openssl \
             ddclient@testing \
-            screen
+            screen \
+            acf-alpine-conf \
+            acf-core \
+            acf-dhcp \
+            acf-openvpn \
+            acf-db \
+            lua-sql-sqlite3 \
+            alpine-conf \
+    && \
+    setup-acf
 ENV         ACME_EMAIL=""
 ENV         START_PARAM=0
 ENV         POST_EXEC=""

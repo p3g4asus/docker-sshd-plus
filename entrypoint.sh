@@ -90,6 +90,7 @@ if [[ "${ROOT_LOGIN_UNLOCKED}" == "true" ]] ; then
         sed -i "s/#PermitRootLogin.*/PermitRootLogin\ yes/" /etc/ssh/sshd_config
         log "    enabled login by password for user 'root'"
     fi
+    acfpasswd -s root
 
 else
 
