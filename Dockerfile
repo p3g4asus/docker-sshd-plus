@@ -24,6 +24,8 @@ RUN echo "" >> /etc/apk/repositories \
             acf-db \
             lua-sql-sqlite3 \
             alpine-conf \
+            bind-tools \
+            curl \
     && \
     setup-acf
 ENV         ACME_EMAIL=""

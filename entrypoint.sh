@@ -171,7 +171,7 @@ fi
 
 echo ""
 if [[ -n "${ACME_EMAIL}" ]] && [[ ! -d ~/.acme.sh ]]; then
-    wget -O -  https://get.acme.sh | sh -s email=${ACME_EMAIL}
+    curl https://get.acme.sh | sh -s email=${ACME_EMAIL}
 fi
 
 if [[ -d ~/.acme.sh ]]; then
