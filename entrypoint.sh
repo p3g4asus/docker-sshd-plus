@@ -180,7 +180,7 @@ if [[ -d ~/.acme.sh ]]; then
 fi
 MAIN_START=$((${START_PARAM} & 1))
 
-[[ -n "${POST_EXEC}" ]] && [[ ${MAIN_START} -gt 0 ]] && screen -dmS start_servers bash -c "export START_PARAM=\"${START_PARAM}\"; ${POST_EXEC}; exec bash"
+[[ -n "${POST_EXEC}" ]] && [[ ${MAIN_START} -gt 0 ]] && screen -dmS start_servers bash -c "export START_PARAM=\"${START_PARAM}\"; export INNER_VERSION=\"${INNER_VERSION}\"; ${POST_EXEC}; exec bash"
 
 # do not detach (-D), log to stderr (-e), passthrough other arguments
 exec /usr/sbin/sshd -D -e "$@"

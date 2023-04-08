@@ -29,6 +29,8 @@ RUN echo "" >> /etc/apk/repositories \
             python3 \
     && \
     setup-acf
+ARG         SUBVERSION=""
+ENV         INNER_VERSION=${SUBVERSION}
 ENV         ACME_EMAIL=""
 ENV         START_PARAM=0
 ENV         POST_EXEC=""
