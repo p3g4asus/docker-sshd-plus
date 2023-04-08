@@ -26,6 +26,7 @@ RUN echo "" >> /etc/apk/repositories \
             alpine-conf \
             bind-tools \
             curl \
+            python3 \
     && \
     setup-acf
 ENV         ACME_EMAIL=""
