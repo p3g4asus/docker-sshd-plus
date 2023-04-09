@@ -13,6 +13,7 @@ RUN echo "" >> /etc/apk/repositories \
             redis \
             mosquitto \
             dhcp \
+            dnsmasq \
             openrc \
             openssl \
             ddclient@testing \
@@ -20,6 +21,7 @@ RUN echo "" >> /etc/apk/repositories \
             acf-alpine-conf \
             acf-core \
             acf-dhcp \
+            acf-dnsmasq \
             acf-openvpn \
             acf-db \
             lua-sql-sqlite3 \
