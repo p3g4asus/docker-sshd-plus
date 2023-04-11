@@ -29,6 +29,7 @@ RUN echo "" >> /etc/apk/repositories \
             bind-tools \
             curl \
             python3 \
+            py3-pip \
     && \
     setup-acf
 ARG         SUBVERSION=""

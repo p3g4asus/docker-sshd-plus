@@ -170,7 +170,8 @@ else
 fi
 
 echo ""
-if [[ -n "${ACME_EMAIL}" ]] && [[ ! -d ~/.acme.sh ]]; then
+CRONEXIST=$(crontab -l | grep acme)
+if [[ -n "${ACME_EMAIL}" ]] && ([[ ! -d ~/.acme.sh ]] || [[ -z "${CRONEXIST}" ]]); then
     curl https://get.acme.sh | sh -s email=${ACME_EMAIL}
 fi
 
