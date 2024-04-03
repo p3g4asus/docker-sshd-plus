@@ -18,12 +18,6 @@ RUN echo "" >> /etc/apk/repositories \
             openssl \
             ddclient@testing \
             screen \
-            acf-alpine-conf \
-            acf-core \
-            acf-dhcp \
-            acf-dnsmasq \
-            acf-openvpn \
-            acf-db \
             lua-sql-sqlite3 \
             alpine-conf \
             bind-tools \
@@ -31,8 +25,15 @@ RUN echo "" >> /etc/apk/repositories \
             ffmpeg \
             python3 \
             py3-pip \
+            chromium-chromedriver \
     && \
-    setup-acf
+    cd /root \
+    && \
+    wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh \
+    && \
+    chmod +x ./dotnet-install.sh \
+    && \
+    ./dotnet-install.sh --version latest --runtime dotnet
 ARG         SUBVERSION=""
 ENV         INNER_VERSION=${SUBVERSION}
 ENV         ACME_EMAIL=""
